@@ -420,6 +420,216 @@
     SELECT name, SUM(salary)
     FROM employees;
 
+# 8.GROUP BY Clause
+- GROUP BY is used to group rows that have the same values into summary rows.
+- It is always used with Aggregate Functions.
+- SYNTAX :
+- ```js
+    SELECT column, AGG_FUNCTION(column)
+    FROM table_name
+    GROUP BY column;
+- Every column in SELECT must be in Either in GROUP BY Or inside aggregate function.Because mixing of aggregate with normal column will cause error.
+- EXAMPLE:
+- ```js
+    // Employee data table.
+    | name  | dept | salary |
+    | ----- | ---- | ------ |
+    | Ravi  | IT   | 30000  |
+    | Anu   | HR   | 40000  |
+    | Rahul | IT   | 50000  |
+    | Sita  | HR   | 35000  |
+    //questions
+    1.Total salary per department.
+    SELECT dept, SUM(salary) AS total_salary
+    FROM employees
+    GROUP BY dept;
+
+    2.Average salary per department.
+    SELECT dept, AVG(salary) AS average_salary
+    FROM employees
+    GROUP BY dept;
+
+    3.Number of employees per department.
+    SELECT dept, COUNT(*) AS number_of_employees
+    FROM employees
+    GROUP BY dept;
+
+    4.Average salary per department where salary > 30000
+    SELECT dept, AVG(salary)
+    FROM employees
+    WHERE salary > 30000
+    GROUP BY dept;
+
+# 9.HAVING Clause
+- HAVING is used to filter groups (not individual rows).
+- WHERE filters rows,HAVING filters groups
+- Syntax & example scenario:
+- ```js
+    //syntax:
+    SELECT column, AGG_FUNCTION(column)
+    FROM table_name
+    GROUP BY column
+    HAVING condition;
+
+    //example:
+    refer to the above employee table.
+    Q.Show only departments where total salary > 70000?
+    - This is done by using "HAVING"
+    SELECT dept, sum(salary)
+    FROM employee
+    GROUP BY dept
+    HAVING sum(salary)>7000;
+
+    //HAVING without GROUP BY
+    SELECT COUNT(*) AS TotalEmployees
+    FROM Employees
+    HAVING COUNT(*) > 100;
+    // Here, the entire Employees table is one group.
+    //HAVING checks if the total employee count exceeds 100.
+
+# 10. JOINS
+- JOIN is used to combine data from multiple tables based on a related column.
+- example scenerio:
+- ```js
+    // we have 2 tables
+    1.Employees.
+    | emp_id | name  | dept_id |
+    | ------ | ----- | ------- |
+    | 1      | Ravi  | 101     |
+    | 2      | Anu   | 102     |
+    | 3      | Rahul | 103     |
+
+    2.Departments.
+    | dept_id | dept_name |
+    | ------- | --------- |
+    | 101     | IT        |
+    | 102     | HR        |
+    | 104     | SALES     |
+
+    Q. we want employee name + department name
+    - This requirs the joins.
+
+# 10.1 Types of JOINS
+- INNER JOIN
+- LEFT JOIN
+- RIGHT JOIN
+- FULL JOIN
+
+# 10.2 INNER JOIN
+- Returns only matching records from both tables
+- ```js
+    SELECT e.name, d.dept_name
+    FROM employees e
+    INNER JOIN departments d
+    ON e.dept_id = d.dept_id;
+    
+    Result:
+    | name | dept_name |
+    | ---- | --------- |
+    | Ravi | IT        |
+    | Anu  | HR        |
+
+# 10.3 LEFT JOIN
+- Returns all records from left table + matching from right.
+- ```js
+    SELECT e.name, d.dept_name
+    FROM employees e
+    LEFT JOIN departments d
+    ON e.dept_id = d.dept_id;
+
+    // result
+    | name  | dept_name |
+    | ----- | --------- |
+    | Ravi  | IT        |
+    | Anu   | HR        |
+    | Rahul | NULL      |
+
+# 10.4 RIGHT JOIN
+- Returns all records from right table + matching from left.
+- ```js
+    SELECT e.name, d.dept_name
+    FROM employees e
+    RIGHT JOIN departments d
+    ON e.dept_id = d.dept_id;
+
+    // result
+    | name | dept_name |
+    | ---- | --------- |
+    | Ravi | IT        |
+    | Anu  | HR        |
+    | NULL | SALES     |
+
+# 10.5 FULL JOIN
+- Returns all records from both tables.
+- ```js
+    SELECT e.name, d.dept_name
+    FROM employees e
+    FULL JOIN departments d
+    ON e.dept_id = d.dept_id;
+
+    //result
+    | name  | dept_name |
+    | ----- | --------- |
+    | Ravi  | IT        |
+    | Anu   | HR        |
+    | Rahul | NULL      |
+    | NULL  | SALES     |
+
+# short form
+- ```js
+    INNER → Common data
+    LEFT → Left + common
+    RIGHT → Right + common
+    FULL → Everything
+
+# 10.6 JOIN with WHERE
+- ```js
+    SELECT e.name, d.dept_name
+    FROM employees e
+    INNER JOIN departments d
+    ON e.dept_id = d.dept_id
+    WHERE d.dept_name = 'IT';
+
+    //result
+    | name | dept_name |
+    | ---- | --------- |
+    | Ravi | IT        |
+
+# 10.7 Multiple JOIN Example
+- ```js
+    //orders
+    | order_id | customer_id | product_id |
+    | -------- | ----------- | ---------- |
+    | 1        | 1           | 101        |
+
+    //customers
+    | customer_id | customer_name |
+    | ----------- | ------------- |
+    | 1           | Sai           |
+
+    //products
+    | product_id | product_name |
+    | ---------- | ------------ |
+    | 101        | Laptop       |
+
+    //query
+    SELECT o.order_id, c.customer_name, p.product_name
+    FROM orders o
+    JOIN customers c ON o.customer_id = c.customer_id
+    JOIN products p ON o.product_id = p.product_id;
+
+    //when you write just JOIN in SQL, it is shorthand for INNER JOIN.(JOIN = INNER JOIN → only rows that match in both tables are returned.)
+    //output
+    | order_id | customer_name | product_name |
+    | -------- | ------------- | ------------ |
+    | 1        | Sai           | Laptop       |
+
+
+
+
+
+
+
 
 
 
