@@ -334,6 +334,10 @@
     SELECT CONCAT(name, ' is enrolled in ', course) AS  enrollment_details 
     FROM students;
 
+  SELECT customer_id,
+       first_name || ' age is ' || age AS cust_with_age
+FROM Customers;
+
     //SUBSTRING() / SUBSTR() => SUBSTRING(string, start_position, length).(index starts with 1)
     example:
     SELECT SUBSTRING('SQLDeveloper', 1, 3);
