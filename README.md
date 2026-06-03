@@ -78,7 +78,8 @@
     FROM table_name;
 
 # 2.5 Arithmetic Operations in SELECT
-- we can use (+,-,*,/)
+- we can use (+,-,*,/,MOD)
+- mod is an function -- mod(number,number)
 - ```js
     //Examples
     1.SELECT name, fees, fees + 1000 AS new_fees
@@ -90,6 +91,11 @@
     //constant column
     3.SELECT name, salary,10000 AS bonus
     FROM employees;
+
+    //mod function
+    4.SELECT DISTINCT CITY FROM STATION //distinct is a key word used to remove the duplicate rows.
+    WHERE MOD(ID,2)=0;
+      
 
 # very important - Order of SQL Execution
 - SQL does not execute in the order you write.
