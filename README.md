@@ -277,7 +277,15 @@
     SELECT *
     FROM students
     WHERE fees IS NOT NULL;
-
+  
+# FETCH FIRST _ ROWS ONLY
+    It is used in SQL to limit the result to only the first row
+    //example:
+    SELECT *
+    FROM Orders
+    ORDER BY order_date DESC
+    FETCH FIRST 1 ROWS ONLY;
+    // if we want 3 rows we use 3 in the place of 1;
 # SUMMARY TABLE
 - ```js
     | ------------- | ----------------------- |
