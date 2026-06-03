@@ -76,7 +76,37 @@
 - ```js  
     SELECT column_name AS new_name
     FROM table_name;
+# 2.4 CASE
+- CASE is one of the most important SQL concepts because it allows SQL to make decisions.
+- Basic synatx & example
+- ```js
+      SELECT
+        column_name,
+        CASE
+            WHEN condition1 THEN value1
+            WHEN condition2 THEN value2
+            ELSE value3
+        END
+    FROM table_name;
+    //example
+    We want grades:
+    Marks >= 90  → A
+    Marks >= 75  → B
+    Marks >= 50  → C
+    Otherwise    → Fail
 
+   //query
+   SELECT
+        NAME,
+        MARKS,
+        CASE
+            WHEN MARKS >= 90 THEN 'A'
+            WHEN MARKS >= 75 THEN 'B'
+            WHEN MARKS >= 50 THEN 'C'
+            ELSE 'Fail'
+        END AS Grade
+    FROM STUDENTS;
+  
 # 2.5 Arithmetic Operations in SELECT
 - we can use (+,-,*,/,MOD)
 - mod is an function -- mod(number,number)
